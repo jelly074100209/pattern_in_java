@@ -1,8 +1,16 @@
 package com.home;
 
 import com.pattern.singleton.Singleton;
+
 import com.pattern.state.GetState;
 import com.pattern.state.Request;
+
+import com.pattern.abstract_factory.AbstractFactory;
+import com.pattern.abstract_factory.ConcreteFactory1;
+import com.pattern.abstract_factory.ConcreteFactory2;
+import com.pattern.abstract_factory.AbstractProductA;
+import com.pattern.abstract_factory.AbstractProductB;
+
 
 public class Main {
 
@@ -44,5 +52,26 @@ public class Main {
         request.Start();
         request.Start();
         request.Start();
+
+        /**
+         * 抽象工厂
+         * 提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类（里氏替换原则）
+         * 适用性
+         *   一个系统要独立于它的产品的创建、组合和表示时
+         *   一个系统要由多个产品系列中的一个来配置时
+         *   当你要强调一系列相关的产品对象的设计以便进行联合使用时
+         *   当你提供一个产品类库，而只想显示它们的接口而不是实现时
+         */
+        System.out.println("---- abstract factory pattern ----");
+        AbstractFactory factory1 = new ConcreteFactory1();
+        AbstractFactory factory2 = new ConcreteFactory2();
+        AbstractProductA productA1 = factory1.CreateProductA();
+        AbstractProductA productA2 = factory2.CreateProductA();
+        AbstractProductB productB1 = factory1.CreateProductB();
+        AbstractProductB productB2 = factory2.CreateProductB();
+        productA1.display();
+        productA2.display();
+        productB1.display();
+        productB2.display();
     }
 }
