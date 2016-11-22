@@ -1,6 +1,6 @@
 package com.home;
 
-import com.pattern.builder.BuilderB;
+import com.pattern.factory_method.MysqlDBFactory;
 import com.pattern.singleton.Singleton;
 
 import com.pattern.state.GetState;
@@ -15,6 +15,11 @@ import com.pattern.abstract_factory.AbstractProductB;
 import com.pattern.builder.Builder;
 import com.pattern.builder.BuilderA;
 import com.pattern.builder.Director;
+import com.pattern.builder.BuilderB;
+
+import com.pattern.factory_method.MongoDBFactory;
+import com.pattern.factory_method.Database;
+import com.pattern.factory_method.DBFactory;
 
 public class Main {
 
@@ -93,5 +98,21 @@ public class Main {
         builder = new BuilderB();
         director = new Director(builder);
         director.BuildFood();
+
+        /**
+         * 工厂方法模式
+         * 定义一个用于创建对象的接口，让子类决定实例化哪一个类。工厂方法使一个类的实例化延迟到其子类
+         * 适用性
+         *   当一个类不知道它所必须创建的对象的类的时候
+         *   当一个类希望由它的子类来指定它所创建的对象的时候
+         *   当类将创建对象的职责委托给多个帮助子类中的某一个，并且你希望将哪一个帮助子类是代理者这一信息局部化的时候
+         */
+        System.out.println("----- factory method pattern -----");
+        DBFactory creator = new MongoDBFactory();
+        Database db = creator.CreateDB();
+        db.display();
+        creator = new MysqlDBFactory();
+        db = creator.CreateDB();
+        db.display();
     }
 }
