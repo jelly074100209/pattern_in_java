@@ -1,5 +1,6 @@
 package com.home;
 
+import com.pattern.builder.BuilderB;
 import com.pattern.singleton.Singleton;
 
 import com.pattern.state.GetState;
@@ -11,6 +12,9 @@ import com.pattern.abstract_factory.ConcreteFactory2;
 import com.pattern.abstract_factory.AbstractProductA;
 import com.pattern.abstract_factory.AbstractProductB;
 
+import com.pattern.builder.Builder;
+import com.pattern.builder.BuilderA;
+import com.pattern.builder.Director;
 
 public class Main {
 
@@ -73,5 +77,21 @@ public class Main {
         productA2.display();
         productB1.display();
         productB2.display();
+
+        /**
+         * 建造者模式
+         * 将一个复杂对象的创建与表示分离，使得同样的构建过程可以创建不同的表示（依赖倒转）
+         * 适用性
+         *   当创建复杂对象的算法应该独立于该对象的组成部分以及它们的装配方式时
+         *   当构造过程必须允许被构造的对象有不同的表示时
+         */
+        System.out.println("----- builder pattern ------");
+        Builder builder = new BuilderA();
+        Director director = new Director(builder);
+        director.BuildFood();
+
+        builder = new BuilderB();
+        director = new Director(builder);
+        director.BuildFood();
     }
 }
