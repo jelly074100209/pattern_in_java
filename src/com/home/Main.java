@@ -1,6 +1,10 @@
 package com.home;
 
-import com.pattern.factory_method.MysqlDBFactory;
+import com.pattern.adapter.Adapter;
+import com.pattern.adapter.Target;
+import com.pattern.factory_method.*;
+import com.pattern.prototype.ConcretePrototype;
+import com.pattern.prototype.Prototype;
 import com.pattern.singleton.Singleton;
 
 import com.pattern.state.GetState;
@@ -16,10 +20,6 @@ import com.pattern.builder.Builder;
 import com.pattern.builder.BuilderA;
 import com.pattern.builder.Director;
 import com.pattern.builder.BuilderB;
-
-import com.pattern.factory_method.MongoDBFactory;
-import com.pattern.factory_method.Database;
-import com.pattern.factory_method.DBFactory;
 
 public class Main {
 
@@ -108,11 +108,47 @@ public class Main {
          *   当类将创建对象的职责委托给多个帮助子类中的某一个，并且你希望将哪一个帮助子类是代理者这一信息局部化的时候
          */
         System.out.println("----- factory method pattern -----");
+        System.out.println("抽象类实现方式");
         DBFactory creator = new MongoDBFactory();
         Database db = creator.CreateDB();
         db.display();
         creator = new MysqlDBFactory();
         db = creator.CreateDB();
         db.display();
+
+        System.out.println("接口与泛型反射实现方式");
+        PenFactory pen_factory = new ConcretePenFactory();
+        Pen pencil = pen_factory.createPen(Pencil.class);
+        Pen brush = pen_factory.createPen(Brush.class);
+        pencil.display();
+        brush.display();
+
+        /**
+         * 原型模式
+         * 用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象
+         * 适用性
+         *   当一个系统应该独立于它的产品创建、构成和表示时，要使用Prototype模式
+         *   当要实例化的类是在运行时刻指定时，例如，通过动态装载
+         *   为了避免创建一个与产品类层次平行的工厂类层次时
+         *   当一个类的实例只能有几个不同状态组合中一种时。建立相应数目的原型并克隆它们可能比每次用合适的状态手工实例化该类更方便一些。
+         */
+        System.out.println("----- prototype pattern -----");
+        Prototype proto1 = new ConcretePrototype("proto 1");
+        Prototype proto2 = (Prototype)proto1.clone();
+        proto1.getName();
+        proto2.getName();
+
+        /**
+         * 适配器模式
+         * 将一个类的接口转换成客户希望的另外一个接口。Adapter模式使得原本由于接口不兼容而不能一起工作的那些类可以一起工作
+         * 适用性
+         *   你想使用一个已经存在的类，而它的接口不符合你的需求
+         *   你想创建一个可以复用的类，该类可以与其他不相关的类或不可预见的类（即那些接口可能不一定兼容的类）协同工作
+         *   （仅适用于对象Adapter）你想使用一些已经存在的子类，但是不可能对每一个都进行子类化以匹配它们的接口。对象适配器可以适配它的父类接口
+         */
+        System.out.println("----- adapter pattern -----");
+        Target target = new Adapter();
+        target.Request1();
+        target.Request2();
     }
 }
