@@ -2,6 +2,10 @@ package com.home;
 
 import com.pattern.adapter.Adapter;
 import com.pattern.adapter.Target;
+import com.pattern.bridge.Abstraction;
+import com.pattern.bridge.ConcreteImplementorA;
+import com.pattern.bridge.ConcreteImplementorB;
+import com.pattern.bridge.RefinedAbstraction;
 import com.pattern.factory_method.*;
 import com.pattern.prototype.ConcretePrototype;
 import com.pattern.prototype.Prototype;
@@ -150,5 +154,23 @@ public class Main {
         Target target = new Adapter();
         target.Request1();
         target.Request2();
+
+        /**
+         * 桥接模式
+         * 将抽象部分与它的实现部分分离，使它们都可以独立地变化
+         * 适用性
+         *   你不希望在抽象和它的实现部分之间有一个固定的绑定关系，例如这种情况可能是因为在程序运行时刻实现部分应可以被选择或者切换。
+         *   类的抽象以及它的实现都应该可以通过生成子类的方法加以扩充，这时Bridge模式使你可以对不同的抽象接口和实现部分进行组合，并分别对它们进行扩充。
+         *   对一个抽象的实现部分的修改应对客户不产生影响，即客户的代码不必重新编译。
+         *   （C++）你想对客户完全隐藏抽象的实现部分。在C++中， 类的表示在类接口中是可见的。
+         *   正如在意图一节的第一个类图中所示的那样，在许多类要生成。这样一种类层次结构说明你必须将一个对象分解成两个部分。
+         *   你想在多个对象间共享实现（可能使用引用计数），但同时要求客户并不知道这一点。
+         */
+        System.out.println("----- bridge pattern -----");
+        Abstraction bridge = new RefinedAbstraction();
+        bridge.SetImplementor(new ConcreteImplementorA());
+        bridge.implementor.display();
+        bridge.SetImplementor(new ConcreteImplementorB());
+        bridge.implementor.display();
     }
 }
