@@ -6,6 +6,8 @@ import com.pattern.bridge.Abstraction;
 import com.pattern.bridge.ConcreteImplementorA;
 import com.pattern.bridge.ConcreteImplementorB;
 import com.pattern.bridge.RefinedAbstraction;
+import com.pattern.composite.Composite;
+import com.pattern.composite.Leaf;
 import com.pattern.factory_method.*;
 import com.pattern.prototype.ConcretePrototype;
 import com.pattern.prototype.Prototype;
@@ -172,5 +174,28 @@ public class Main {
         bridge.implementor.display();
         bridge.SetImplementor(new ConcreteImplementorB());
         bridge.implementor.display();
+
+        /**
+         * 组合模式
+         * 将对象组合成树形以表示“部分-整体”的层次结构。Composite使得用户对单个对象和组合对象的使用具有一致性
+         * 适用性
+         *   你想表示对象的部分-整体层次结构
+         *   你希望用户忽略组合对象与单个对象的不同，用户将统一地使用组合结构中的所有对象
+         */
+        System.out.println("----- Composite pattern -----");
+        Composite pRoot = new Composite("pRoot");
+        pRoot.Add(new Leaf("leafRoot"));
+        Leaf pLeaf1 = new Leaf("pLeaf1");
+        Leaf pLeaf2 = new Leaf("pLeaf2");
+        pLeaf1.Add(pLeaf2);
+        pLeaf1.Remove(pLeaf2);
+
+        Composite pCom = new Composite("pCom");
+        pCom.Add(pLeaf1);
+        pCom.Add(pLeaf2);
+        pCom.Operation();
+        pRoot.Add(pCom);
+        pRoot.GetChild(0);
+        pRoot.Operation();
     }
 }
