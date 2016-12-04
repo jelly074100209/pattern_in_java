@@ -12,7 +12,9 @@ import com.pattern.decorator.Component;
 import com.pattern.decorator.ConcreteComponent;
 import com.pattern.decorator.ConcreteDecorator;
 import com.pattern.decorator.Decorator;
+import com.pattern.facade.Facade;
 import com.pattern.factory_method.*;
+import com.pattern.flyweight.FlyweightFactory;
 import com.pattern.prototype.ConcretePrototype;
 import com.pattern.prototype.Prototype;
 import com.pattern.singleton.Singleton;
@@ -215,5 +217,39 @@ public class Main {
         Component component = new ConcreteComponent();
         Decorator decorator = new ConcreteDecorator(component);
         decorator.display();
+
+        /**
+         * 外观模式
+         * 为子系统中的一组接口提供一个一致的界面，Facade模式定义了一个高层接口，这个接口使得这一子系统更加容易使用
+         * 适用性
+         *   当你要为一个复杂子系统提供一个简单接口时。子系统往往因为不断深化而变得越来越复杂。大多数模式使用时都会产生
+         *   更多更小的类。这使得子系统更具可重用性，也更容易对子系统进行定制，但这也给那些不需要定制子系统的用户带来一
+         *   些使用上的困难。Facade可以提供一个简单的缺省视图，这一视图对大多数用户来说已经足够，而那些需要更多的可定制
+         *   的用户可以越过Facade层。
+         *   客户程序与抽象类的实现部分之间存在着很大的依赖性。引入Facade将这个子系统与客户以及其他的子系统分离，可以提高
+         *   子系统的独立性和可移植性。
+         *   当你需要构建一个层次结构的子系统时，使用facade模式定义子系统中每层的入口点。如果子系统之间是相互依赖的，你可以
+         *   让它们仅通过facade进行通讯，从而简化了它们之间的依赖关系。
+         */
+        System.out.println("----- facade pattern -----");
+        Facade.method1();
+        Facade.method2();
+
+        /**
+         * 享元模式
+         * 运用共享技术有效地支持大量细粒度的对象
+         * 适用性
+         *   一个应用程序使用了大量的对象
+         *   完全由于使用大量的对象，造成很大的存储开销
+         *   对象的大多数状态都可变为外部状态
+         *   如果删除对象的外部状态，那么可以用相对较少的共享对象取代很多组对象
+         *   应用程序不依赖对象标识。由于Flyweight对象可以被共享，对于概念上明显有别的对象，标识测试将返回真值
+         */
+        System.out.println("----- flyweight pattern -----");
+        FlyweightFactory flyweightFactory = new FlyweightFactory();
+        flyweightFactory.getFlyweight("A");
+        flyweightFactory.getFlyweight("B");
+        flyweightFactory.getFlyweight("B");
+        System.out.println("size: " + flyweightFactory.getSize());
     }
 }
