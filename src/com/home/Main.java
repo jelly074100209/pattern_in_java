@@ -14,9 +14,12 @@ import com.pattern.decorator.ConcreteDecorator;
 import com.pattern.decorator.Decorator;
 import com.pattern.facade.Facade;
 import com.pattern.factory_method.*;
+import com.pattern.flyweight.ConcreteFlyweight;
 import com.pattern.flyweight.FlyweightFactory;
 import com.pattern.prototype.ConcretePrototype;
 import com.pattern.prototype.Prototype;
+import com.pattern.proxy.Proxy;
+import com.pattern.proxy.RealSubject;
 import com.pattern.singleton.Singleton;
 
 import com.pattern.state.GetState;
@@ -247,9 +250,31 @@ public class Main {
          */
         System.out.println("----- flyweight pattern -----");
         FlyweightFactory flyweightFactory = new FlyweightFactory();
-        flyweightFactory.getFlyweight("A");
-        flyweightFactory.getFlyweight("B");
-        flyweightFactory.getFlyweight("B");
+        ConcreteFlyweight flyweight1 = (ConcreteFlyweight)flyweightFactory.getFlyweight("A");
+        flyweight1.Operation();
+        ConcreteFlyweight flyweight2 = (ConcreteFlyweight)flyweightFactory.getFlyweight("B");
+        flyweight2.Operation();
+        ConcreteFlyweight flyweight3 = (ConcreteFlyweight)flyweightFactory.getFlyweight("B");
+        flyweight3.Operation();
+        flyweightFactory.removeFlyweight("B");
+        flyweight3.Operation();
         System.out.println("size: " + flyweightFactory.getSize());
+
+        /**
+         * 代理模式
+         * 为其他对象提供一种代理以控制对这个对象的访问
+         * 适用性
+         *   远程代理 为一个对象在不同地址空间提供局部代表
+         *   虚代理  根据需要创建开销很大的对象
+         *   保护代理 控制对原始对象的访问。保护代理用于对象应该有不同的访问权限的时候。
+         *   智能指引 取代了简单的指针，它在访问对象时执行一些附加操作。它的典型用途包括
+         *   	（对指向实际对象的引用计数，这样当该对象没有引用时，可以自动翻译它）
+         *   	（当第一次引用一个持久对象时，将它装入内存）
+         *   	（在访问一个实际对象前，检查是否已经锁定了它，以确保其他对象不能改变它）
+         */
+        System.out.println("----- proxy pattern -----");
+        RealSubject realSubject = new RealSubject();
+        Proxy proxy = new Proxy(realSubject);
+        proxy.display();
     }
 }

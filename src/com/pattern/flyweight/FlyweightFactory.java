@@ -16,6 +16,12 @@ public class FlyweightFactory {
         }
         return flyweight;
     }
+    public void removeFlyweight(Object obj) {
+        Flyweight flyweight = (Flyweight)Flyweights.get(obj);
+        if (flyweight != null) {
+            Flyweights.remove(obj);
+        }
+    }
     public int getSize() {
         return Flyweights.size();
     }
