@@ -6,6 +6,7 @@ import com.pattern.bridge.Abstraction;
 import com.pattern.bridge.ConcreteImplementorA;
 import com.pattern.bridge.ConcreteImplementorB;
 import com.pattern.bridge.RefinedAbstraction;
+import com.pattern.command.*;
 import com.pattern.composite.Composite;
 import com.pattern.composite.Leaf;
 import com.pattern.decorator.Component;
@@ -292,5 +293,23 @@ public class Main {
         Handler handlerB = new ConcreteHandlerB(null);
         Handler handlerA = new ConcreteHandlerA(handlerB);
         handlerA.handle();
+
+        /**
+         * 命令模式
+         * 将一个请求封闭为一个对象，从而使你可用不同的请求对客户进行参数化；对请求排队或记录请求日志，以及支持可撤消操作
+         * 适用性
+         *   抽象出待执行的动作以参数化某对象。Command模式是回调机制的一个面向对象的替代品
+         *   在不同的时刻指定、排列和执行请求。
+         *   支持取消操作
+         *   支持个性日志，这样当系统崩溃时，这些修改可以被重做一遍
+         */
+        System.out.println("----- command pattern -----");
+        Receiver receiver = new Receiver();
+        Command cmdA = new ConcreteCommandA(receiver);
+        Command cmdB = new ConcreteCommandB(receiver);
+        Invoker invoker = new Invoker();
+        invoker.setCommand(cmdA);
+        invoker.setCommand(cmdB);
+        invoker.notifyEach();
     }
 }
